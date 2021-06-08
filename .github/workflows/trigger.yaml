@@ -1,10 +1,10 @@
-name: Deploy to Staging
+name: 1 Deploy to Staging
 on:
   push:
     branches: [main]
 
 jobs:
-  deploy-to-staging:
+  trigger deployment on staging:
     name: Deploys the latest image to staging
     runs-on: ubuntu-latest
     steps:
