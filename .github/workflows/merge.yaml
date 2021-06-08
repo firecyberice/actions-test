@@ -4,6 +4,10 @@ on:
     types:
       - opened
       - labeled
+  pull_request_review:
+    types:
+      - submitted
+
 jobs:
   automerge-version-update:
     name: Automerge version update
