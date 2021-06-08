@@ -1,12 +1,12 @@
-name: Bump image tag on staging
+name: 2 Bump image tag and create PR
 
 on:
   repository_dispatch:
     types: [ "bump-image-tag-staging" ]
 
 jobs:
-  bump-image-tag-staging:
-    name: Bump image tag on staging
+  update image tag:
+    name: Update image tag on staging
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -47,7 +47,7 @@ jobs:
         with:
           title: '[${{ github.event.client_payload.message.service_name }}] Update image tag'
           author: IONOS GitHub Bot <no-reply@cloud.ionos.com>
-          commit-message: Update ${{ github.event.client_payload.message.service_name }} image tag ${{ github.event.client_payload.message.image_tag }}
+          commit-message: "chore(${{ github.event.client_payload.message.service_name }}): update image tag to ${{ github.event.client_payload.message.image_tag }}"
           branch: ${{ github.event.client_payload.message.service_name }}_image_tag_${{ github.event.client_payload.message.image_tag }}
           delete-branch: true
           token: "${{ secrets.GITHUB_TOKEN }}"
