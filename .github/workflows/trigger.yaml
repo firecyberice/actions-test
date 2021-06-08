@@ -25,12 +25,12 @@ jobs:
       - name: Dispatch 'bump-image-tag-staging' message to K8s repo
         uses: mvasigh/dispatch-action@main
         with:
+          event_type: bump-image-tag-staging
           # A personal access token with the 'repo' permission
           #token: ${{ secrets.K8S_REPO_ACCESS_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          #repo: 
-          #owner: 
-          event_type: bump-image-tag-staging
+          owner: firecyberice
+          repo: actions-test
           message: |
             {
               "image_name": "ghcr.io/firecyberice/foo",
