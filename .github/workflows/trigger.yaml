@@ -36,4 +36,5 @@ jobs:
               "image_name": "ghcr.io/firecyberice/foo",
               "image_tag": "${{ steps.extract_tag.outputs.current_tag }}",
               "service_name": "foo"
+              "token": "${{ secrets.PAT }}",
             }
