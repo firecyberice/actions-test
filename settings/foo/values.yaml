@@ -1,5 +1,4 @@
----
 foo:
   image:
-    repository: asdf
-    tag: qwertz
+    repository: ghcr.io/firecyberice/foo
+    tag: ee3e8c4e
