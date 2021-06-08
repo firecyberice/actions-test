@@ -1,4 +1,4 @@
-name: Merge automated PRs
+name: 3 Merge automated PRs
 on:
   pull_request:
     types:
