@@ -23,8 +23,8 @@ jobs:
         with:
           cmd: |
             set -xe;
-            yq e '.${{ github.event.client_payload.message.service_name }}.image.repository = "${{ github.event.client_payload.message.image_name }}"' -i settings/provisioning/${{ github.event.client_payload.message.service_name }}/values.yaml;
-            yq e '.${{ github.event.client_payload.message.service_name }}.image.tag = "${{ github.event.client_payload.message.image_tag }}"' -i settings/provisioning/${{ github.event.client_payload.message.service_name }}/values.yaml;
+            yq e '.${{ github.event.client_payload.message.service_name }}.image.repository = "${{ github.event.client_payload.message.image_name }}"' -i settings/${{ github.event.client_payload.message.service_name }}/values.yaml;
+            yq e '.${{ github.event.client_payload.message.service_name }}.image.tag = "${{ github.event.client_payload.message.image_tag }}"' -i settings/${{ github.event.client_payload.message.service_name }}/values.yaml;
             set +xe;
 
       - name: Configure Git
@@ -32,14 +32,14 @@ jobs:
           git config user.email "no-reply@cloud.ionos.com";
           git config user.name "IONOS GitHub Bot";
 
-      - name: Commit image tag
-        run: |
-          set -xe;
-          git status;
-          git diff;
-          git add settings/provisioning/${{ github.event.client_payload.message.service_name }}/values.yaml;
-          git commit -m "Bump image tag for ${{ github.event.client_payload.message.service_name }} from ${{ github.event.client_payload.message.image_name }} to ${{ github.event.client_payload.message.image_tag }}";
-          set +xe;
+      #- name: Commit image tag
+      #  run: |
+      #    set -xe;
+      #    git status;
+      #    git diff;
+      #    git add settings/${{ github.event.client_payload.message.service_name }}/values.yaml;
+      #    git commit -m "Bump image tag for ${{ github.event.client_payload.message.service_name }} from ${{ github.event.client_payload.message.image_name }} to ${{ github.event.client_payload.message.image_tag }}";
+      #    set +xe;
 
       - name: Create Pull Request
         id: cpr
