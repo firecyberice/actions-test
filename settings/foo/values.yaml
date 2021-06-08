@@ -1,4 +1,4 @@
 foo:
   image:
     repository: ghcr.io/firecyberice/foo
-    tag: 937d86a1
+    tag: 3e2d6727
