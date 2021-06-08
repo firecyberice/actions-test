@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Approve pull request
-        #if: contains(github.event.pull_request.labels.*.name, 'update version')
-        if: github.actor == 'IONOS GitHub Bot'
+        if: contains(github.event.pull_request.labels.*.name, 'update version')
+        #if: github.actor == 'IONOS GitHub Bot'
         uses: andrewmusgrave/automatic-pull-request-review@0.0.5
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
