@@ -5,7 +5,7 @@ on:
     types: [ "bump-image-tag-staging" ]
 
 jobs:
-  update image tag:
+  update-version:
     name: Update image tag on staging
     runs-on: ubuntu-latest
     steps:
