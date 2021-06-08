@@ -50,8 +50,9 @@ jobs:
           commit-message: Update ${{ github.event.client_payload.message.service_name }} image tag ${{ github.event.client_payload.message.image_tag }}
           branch: ${{ github.event.client_payload.message.service_name }}_image_tag_${{ github.event.client_payload.message.image_tag }}
           delete-branch: true
-          # token: "${{ github.event.client_payload.message.token }}"
-          token: "${{ secrets.GITHUB_TOKEN }}"
+          # otherwise the action cannot approve the PR
+          token: "${{ github.event.client_payload.message.token }}"
+#           token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Label PR
         uses: actions-ecosystem/action-add-labels@v1
@@ -60,4 +61,5 @@ jobs:
           number: ${{ steps.cpr.outputs.pull-request-number }}"
           labels: |
             automated PR
+            update version
             ${{ github.event.client_payload.message.service_name }}
