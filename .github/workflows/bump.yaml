@@ -62,10 +62,10 @@ jobs:
             automated PR
             ${{ github.event.client_payload.message.service_name }}
 
-  automerge-version-update:
-    name: Automerge version update
-    runs-on: ubuntu-latest
-    steps:
+#  automerge-version-update:
+#    name: Automerge version update
+#    runs-on: ubuntu-latest
+#    steps:
       - name: Approve pull request
         uses: andrewmusgrave/automatic-pull-request-review@0.0.5
         with:
