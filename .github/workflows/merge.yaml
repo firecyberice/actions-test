@@ -1,4 +1,4 @@
-name: Merage automated PRs
+name: Merge automated PRs
 on:
   pull_request:
     types:
@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Approve pull request
+        if: contains(github.event.pull_request.labels.*.name, 'update version')
         uses: andrewmusgrave/automatic-pull-request-review@0.0.5
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -19,5 +20,5 @@ jobs:
         uses: pascalgn/automerge-action@v0.14.1
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: "${{ github.event.client_payload.message.service_name }}"
+          MERGE_LABELS: "update version"
           MERGE_METHOD: "squash"
