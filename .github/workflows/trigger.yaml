@@ -1,8 +1,6 @@
 name: Deploy to Staging
 on:
-  workflow_run:
-    workflows:
-      - Continuous deployment workflow for staging
+  push:
     branches: [main]
     types:
       - completed
