@@ -22,5 +22,6 @@ jobs:
         uses: pascalgn/automerge-action@v0.14.1
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_METHOD: "rebase"
           MERGE_LABELS: "update version"
-          MERGE_METHOD: "squash"
+          MERGE_REMOVE_LABELS: "update version"
