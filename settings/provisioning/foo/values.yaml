@@ -1,0 +1,5 @@
+---
+foo:
+  image:
+    repository: asdf
+    tag: qwertz
