@@ -1,0 +1,23 @@
+name: Merage automated PRs
+on:
+  pull_request:
+    types:
+      - opened
+      - labeled
+jobs:
+  automerge-version-update:
+    name: Automerge version update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Approve pull request
+        uses: andrewmusgrave/automatic-pull-request-review@0.0.5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          event: APPROVE
+          
+      - name: automerge
+        uses: pascalgn/automerge-action@v0.14.1
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: "${{ github.event.client_payload.message.service_name }}"
+          MERGE_METHOD: "squash"
