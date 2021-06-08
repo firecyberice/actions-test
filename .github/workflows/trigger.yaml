@@ -4,7 +4,7 @@ on:
     branches: [main]
 
 jobs:
-  trigger deployment on staging:
+  trigger:
     name: Deploys the latest image to staging
     runs-on: ubuntu-latest
     steps:
