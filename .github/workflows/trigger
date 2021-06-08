@@ -1,0 +1,43 @@
+name: Deploy to Staging
+on:
+  workflow_run:
+    workflows:
+      - Continuous deployment workflow for staging
+    branches: [mainline]
+    types:
+      - completed
+
+jobs:
+  deploy-to-staging:
+    name: Deploys the latest image to staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Extract latest image tag
+        id: extract_tag
+        run: |
+          set -e
+          echo "::set-output name=current_tag::$(git rev-parse --short=8 HEAD)";
+          set +e
+
+      - name: Show tag
+        run: |
+          echo "template: ${{ steps.extract_tag.outputs.current_tag }}"
+
+      - name: Dispatch 'bump-image-tag-staging' message to K8s repo
+        uses: mvasigh/dispatch-action@main
+        with:
+          # A personal access token with the 'repo' permission
+          #token: ${{ secrets.K8S_REPO_ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          #repo: 
+          #owner: 
+          event_type: bump-image-tag-staging
+          message: |
+            {
+              "image_name": "ghcr.io/firecyberice/foo",
+              "image_tag": "${{ steps.extract_tag.outputs.current_tag }}",
+              "service_name": "foo"
+            }
