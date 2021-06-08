@@ -28,7 +28,7 @@ jobs:
           event_type: bump-image-tag-staging
           # A personal access token with the 'repo' permission
           #token: ${{ secrets.K8S_REPO_ACCESS_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           owner: firecyberice
           repo: actions-test
           message: |
