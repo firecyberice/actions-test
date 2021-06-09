@@ -6,10 +6,11 @@ on:
 jobs:
   trigger:
     env:
-      team: alpha
       stack: provisioning
-      registry: ghcr.io
-      image_name: foo
+      #team: alpha
+      #registry: ghcr.io
+      registry: docker.pkg.github.com
+      image_name: ${GITHUB_REPOSITORY##*/}
       target_org: firecyberice
       target_repo: actions-test
 
@@ -58,5 +59,6 @@ jobs:
             {
               "image_name": "${{ steps.gh_vars.outputs.image }}",
               "image_tag": "${{ steps.gh_vars.outputs.sha }}",
-              "service_name": "${{ steps.gh_vars.outputs.repo }}"
+              "service_name": "${{ steps.gh_vars.outputs.repo }}",
+              "stack": "${{ env.stack }}"
             }
