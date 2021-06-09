@@ -5,9 +5,24 @@ on:
 
 jobs:
   trigger:
+    env:
+      team: alpha
+      stack: provisioning
+      registry: ghcr.io
+      image_name: foo
+      target_org: firecyberice
+      target_repo: actions-test
+
     name: Deploys the latest image to staging
     runs-on: ubuntu-latest
     steps:
+
+#      - uses: bubkoo/use-app-token@v1
+#        id: generate_token
+#        with:
+#          app_id: ${{ secrets.APP_ID }}
+#          private_key: ${{ secrets.PRIVATE_KEY }}
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -18,22 +33,35 @@ jobs:
           echo "::set-output name=current_tag::$(git rev-parse --short=8 HEAD)";
           set +e
 
-      - name: Show tag
+      - name: Get repo and org
+        id: gh_namespace
         run: |
-          echo "template: ${{ steps.extract_tag.outputs.current_tag }}"
+          set -e
+          echo "::set-output name=org::$(echo ${GITHUB_REPOSITORY%%/*})";
+          echo "::set-output name=repo::$(echo ${GITHUB_REPOSITORY##*/})";
+          echo "::set-output name=image::$(echo ${{ env.registry }}/${{ GITHUB_REPOSITORY }}/${{ env.image_name}})";
+          set +e
+         
+      - name: Show variables
+        run: |
+          printf "%s: %20s\n" tag "${{ steps.extract_tag.outputs.current_tag }}"
+          printf "%s: %20s\n" org "${{ steps.gh_namespace.outputs.org }}"
+          printf "%s: %20s\n" repo "${{ steps.gh_namespace.outputs.repo }}"
+          printf "%s: %20s\n" image "${{ steps.gh_namespace.outputs.image }}"
 
       - name: Dispatch 'bump-image-tag-staging' message to K8s repo
         uses: mvasigh/dispatch-action@main
         with:
           event_type: bump-image-tag-staging
           # A personal access token with the 'repo' permission
-          #token: ${{ secrets.K8S_REPO_ACCESS_TOKEN }}
           token: ${{ secrets.PAT }}
-          owner: firecyberice
-          repo: actions-test
+          # use github app to get rid of a personal access token
+          #token: ${{ steps.generate_token.outputs.token }}
+          owner: ${{ env.target_org }}
+          repo: ${{ env.target_repo }}
           message: |
             {
               "image_name": "ghcr.io/firecyberice/foo",
               "image_tag": "${{ steps.extract_tag.outputs.current_tag }}",
-              "service_name": "foo"
+              "service_name": "${{ steps.gh_namespace.outputs.repo }}"
             }
