@@ -31,7 +31,6 @@ jobs:
         id: gh_vars
         run: |
           set -e
-          echo "list of variables"
           echo "::set-output name=sha::$(echo ${GITHUB_SHA:0:8})"
           echo "::set-output name=org::$(echo ${GITHUB_REPOSITORY%%/*})"
           echo "::set-output name=repo::$(echo ${GITHUB_REPOSITORY##*/})"
@@ -40,6 +39,7 @@ jobs:
          
       - name: Show variables
         run: |
+          echo "list of variables"
           printf "%s: %20s\n" org "${{ steps.gh_vars.outputs.org }}"
           printf "%s: %20s\n" repo "${{ steps.gh_vars.outputs.repo }}"
           printf "%s: %20s\n" image "${{ steps.gh_vars.outputs.image }}"
