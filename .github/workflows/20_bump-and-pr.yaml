@@ -41,6 +41,12 @@ jobs:
       #    git commit -m "Bump image tag for ${{ github.event.client_payload.message.service_name }} from ${{ github.event.client_payload.message.image_name }} to ${{ github.event.client_payload.message.image_tag }}";
       #    set +xe;
 
+      #- uses: bubkoo/use-app-token@v1
+      #  id: generate_token
+      #  with:
+      #    app_id: ${{ secrets.APP_ID }}
+      #    private_key: ${{ secrets.PRIVATE_KEY }}
+
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v3
@@ -51,12 +57,15 @@ jobs:
           branch: ${{ github.event.client_payload.message.service_name }}_image_tag_${{ github.event.client_payload.message.image_tag }}
           delete-branch: true
           token: "${{ secrets.GITHUB_TOKEN }}"
+          #token: "${{ steps.generate_token.outputs.token }}"
+          # received with the dispatch payload
           #token: "${{ github.event.client_payload.message.token }}"
 
       - name: Label PR
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
+          #github_token: "${{ steps.generate_token.outputs.token }}"
           number: ${{ steps.cpr.outputs.pull-request-number }}"
           labels: |
             automated PR
