@@ -1,7 +1,3 @@
-foo:
-  image:
-    repository: ghcr.io/firecyberice/foo
-    tag: 3e2d6727
 actions-test:
   image:
     repository: docker.pkg.github.com/firecyberice/actions-test/actions-test
