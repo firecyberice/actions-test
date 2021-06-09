@@ -23,8 +23,8 @@ jobs:
         with:
           cmd: |
             set -xe;
-            yq e '.${{ github.event.client_payload.message.service_name }}.image.repository = "${{ github.event.client_payload.message.image_name }}"' -i settings/${{ github.event.client_payload.message.service_name }}/values.yaml;
-            yq e '.${{ github.event.client_payload.message.service_name }}.image.tag = "${{ github.event.client_payload.message.image_tag }}"' -i settings/${{ github.event.client_payload.message.service_name }}/values.yaml;
+            yq e '.${{ github.event.client_payload.message.service_name }}.image.repository = "${{ github.event.client_payload.message.image_name }}"' -i settings/${{ github.event.client_payload.message.stack}}/${{ github.event.client_payload.message.service_name }}/values.yaml;
+            yq e '.${{ github.event.client_payload.message.service_name }}.image.tag = "${{ github.event.client_payload.message.image_tag }}"' -i settings/${{ github.event.client_payload.message.stack}}/${{ github.event.client_payload.message.service_name }}/values.yaml;
             set +xe;
 
       - name: Configure Git
