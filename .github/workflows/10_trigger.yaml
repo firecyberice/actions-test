@@ -39,7 +39,7 @@ jobs:
           set -e
           echo "::set-output name=org::$(echo ${GITHUB_REPOSITORY%%/*})";
           echo "::set-output name=repo::$(echo ${GITHUB_REPOSITORY##*/})";
-          echo "::set-output name=image::$(echo ${{ env.registry }}/${{ GITHUB_REPOSITORY }}/${{ env.image_name}})";
+          echo "::set-output name=image::$(echo ${{ env.registry }}/$GITHUB_REPOSITORY/${{ env.image_name}})";
           set +e
          
       - name: Show variables
