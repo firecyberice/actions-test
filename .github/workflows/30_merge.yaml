@@ -13,12 +13,20 @@ jobs:
     name: Automerge version update
     runs-on: ubuntu-latest
     steps:
+      #- uses: bubkoo/use-app-token@v1
+      #  id: generate_token
+      #  with:
+      #    app_id: ${{ secrets.APP_ID }}
+      #    private_key: ${{ secrets.PRIVATE_KEY }}
+
 #      - name: Approve pull request
 #        if: contains(github.event.pull_request.labels.*.name, 'update version')
 #        #if: github.actor == 'IONOS GitHub Bot'
 #        uses: andrewmusgrave/automatic-pull-request-review@0.0.5
 #        with:
 #          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          # use github app if needed
+#          repo-token: ${{ steps.generate_token.outputs.token }}
 #          event: APPROVE
 #          body: 'Thank you 🎊'
           
@@ -26,6 +34,8 @@ jobs:
         uses: pascalgn/automerge-action@v0.14.1
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          # use github app if needed
+          #GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           MERGE_METHOD: "rebase"
           MERGE_LABELS: "update version"
           MERGE_REMOVE_LABELS: "update version"
