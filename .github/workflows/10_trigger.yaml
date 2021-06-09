@@ -34,20 +34,23 @@ jobs:
           set +e
 
       - name: Get repo and org
-        id: gh_namespace
+        id: gh_vars
         run: |
           set -e
-          echo "::set-output name=org::$(echo ${GITHUB_REPOSITORY%%/*})";
-          echo "::set-output name=repo::$(echo ${GITHUB_REPOSITORY##*/})";
-          echo "::set-output name=image::$(echo ${{ env.registry }}/$GITHUB_REPOSITORY/${{ env.image_name}})";
+          echo "list of variables"
+          echo "::set-output name=sha::$(echo ${GITHUB_SHA:0:8})"
+          echo "::set-output name=org::$(echo ${GITHUB_REPOSITORY%%/*})"
+          echo "::set-output name=repo::$(echo ${GITHUB_REPOSITORY##*/})"
+          echo "::set-output name=image::$(echo ${{ env.registry }}/$GITHUB_REPOSITORY/${{ env.image_name}})"
           set +e
          
       - name: Show variables
         run: |
           printf "%s: %20s\n" tag "${{ steps.extract_tag.outputs.current_tag }}"
-          printf "%s: %20s\n" org "${{ steps.gh_namespace.outputs.org }}"
-          printf "%s: %20s\n" repo "${{ steps.gh_namespace.outputs.repo }}"
+          printf "%s: %20s\n" org "${{ steps.gh_vars.outputs.org }}"
+          printf "%s: %20s\n" repo "${{ steps.gh_vars.outputs.repo }}"
           printf "%s: %20s\n" image "${{ steps.gh_namespace.outputs.image }}"
+          printf "%s: %20s\n" sha "${{ steps.gh_vars.outputs.sha }}"
 
       - name: Dispatch 'bump-image-tag-staging' message to K8s repo
         uses: mvasigh/dispatch-action@main
