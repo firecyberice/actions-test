@@ -26,14 +26,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Extract latest image tag
-        id: extract_tag
-        run: |
-          set -e
-          echo "::set-output name=current_tag::$(git rev-parse --short=8 HEAD)";
-          set +e
-
-      - name: Get repo and org
+      - name: Get parameters
         id: gh_vars
         run: |
           set -e
@@ -46,10 +39,9 @@ jobs:
          
       - name: Show variables
         run: |
-          printf "%s: %20s\n" tag "${{ steps.extract_tag.outputs.current_tag }}"
           printf "%s: %20s\n" org "${{ steps.gh_vars.outputs.org }}"
           printf "%s: %20s\n" repo "${{ steps.gh_vars.outputs.repo }}"
-          printf "%s: %20s\n" image "${{ steps.gh_namespace.outputs.image }}"
+          printf "%s: %20s\n" image "${{ steps.gh_vars.outputs.image }}"
           printf "%s: %20s\n" sha "${{ steps.gh_vars.outputs.sha }}"
 
       - name: Dispatch 'bump-image-tag-staging' message to K8s repo
@@ -64,7 +56,7 @@ jobs:
           repo: ${{ env.target_repo }}
           message: |
             {
-              "image_name": "ghcr.io/firecyberice/foo",
-              "image_tag": "${{ steps.extract_tag.outputs.current_tag }}",
-              "service_name": "${{ steps.gh_namespace.outputs.repo }}"
+              "image_name": "${{ steps.gh_vars.outputs.image }}",
+              "image_tag": "${{ steps.gh_vars.outputs.sha }}",
+              "service_name": "${{ steps.gh_vars.outputs.repo }}"
             }
