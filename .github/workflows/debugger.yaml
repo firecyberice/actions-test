@@ -5,8 +5,8 @@ on:
     types: [ "debugger" ]
 
 jobs:
-  update-version:
-    name: Debugger
+  debugger:
+    name: debugger
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
