@@ -1,0 +1,25 @@
+name: debugger
+
+on:
+  repository_dispatch:
+    types: [ "debugger" ]
+
+jobs:
+  update-version:
+    name: Debugger
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Print received message body
+        run: |
+          echo "Received message body: ${{ toJSON(github.event.client_payload.message) }}"
+      - name: Update chart image repo and tag
+        uses: mikefarah/yq@v4.4.1
+        with:
+          cmd: |
+            set -xe;
+            echo '${{ github.event.client_payload.message.service_name }}'
