@@ -1,5 +1,8 @@
 name: debugger
 
+env:
+  default_team: hello-world
+
 on:
   repository_dispatch:
     types: [ "debugger" ]
@@ -46,5 +49,5 @@ jobs:
         with:
           cmd: |
             set -xe;
-            echo '${{ github.event.client_payload.message.team || "hello-world" }}'
+            echo '${{ github.event.client_payload.message.team || env.default_team }}'
             echo '${{ github.event.inputs.team }}'
