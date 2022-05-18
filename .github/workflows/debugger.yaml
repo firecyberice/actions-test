@@ -49,7 +49,6 @@ jobs:
         with:
           cmd: |
             set -e;
-            echo '${{ github.event.client_payload.message.team || env.default_team }}'
-            echo '${{ github.event.client_payload.message.team }}'
+            echo '${{ github.event.client_payload.team || env.default_team }}'
             echo '${{ github.event.inputs.team }}'
             echo '${{ github.event.client_payload.team }}'
