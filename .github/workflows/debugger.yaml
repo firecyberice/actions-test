@@ -28,4 +28,4 @@ jobs:
         with:
           cmd: |
             set -xe;
-            echo '${{ github.event.client_payload.message.service_name } || "example-service" }'
+            echo '${{ github.event.client_payload.message.service_name }} || "example-service"'
