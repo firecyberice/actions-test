@@ -46,5 +46,5 @@ jobs:
         with:
           cmd: |
             set -xe;
-            echo '${{ github.event.client_payload.message.team }}'
+            echo '${{ github.event.client_payload.message.team || "hello-world" }}'
             echo '${{ github.event.inputs.team }}'
