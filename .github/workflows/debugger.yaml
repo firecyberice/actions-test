@@ -48,6 +48,8 @@ jobs:
         uses: mikefarah/yq@v4.4.1
         with:
           cmd: |
-            set -xe;
+            set -e;
             echo '${{ github.event.client_payload.message.team || env.default_team }}'
+            echo '${{ github.event.client_payload.message.team }}'
             echo '${{ github.event.inputs.team }}'
+            echo '${{ github.event.client_payload.team }}'
