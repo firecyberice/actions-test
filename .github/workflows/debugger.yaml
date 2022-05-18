@@ -1,6 +1,8 @@
 name: debugger
 
 on:
+  repository_dispatch:
+    types: [ "debugger" ]
   workflow_dispatch:
     inputs:
       service_name:
