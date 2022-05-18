@@ -1,21 +1,40 @@
 name: debugger
 
+inputs:
+  team:
+    description: 'Service Name'
+    required: false
+    default: 'dcmanager' 
+    type: string
+
 on:
   repository_dispatch:
-    inputs:
-      team:
-        description: 'Service Name'
-        required: false
-        default: 'dcmanager' 
-        type: string
     types: [ "debugger" ]
   workflow_dispatch:
     inputs:
       team:
-        description: 'Service Name'
+        description: 'Team Name'
         required: false
-        default: 'provisioning' 
         type: string
+        default: 'provisioning' 
+      folder:
+        description: 'Team Name'
+        required: false
+        type: choice
+        default: provisioning
+        options: 
+        - provisioning'
+        - dcmanager
+        - customerexperience
+      envs:
+        description: 'Env Name'
+        required: false
+        type: choice
+        default: stage42
+        options: 
+        - stage42
+        - paas
+        - iaas
 jobs:
   debugger:
     name: debugger
