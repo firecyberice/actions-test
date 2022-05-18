@@ -2,10 +2,16 @@ name: debugger
 
 on:
   repository_dispatch:
+    inputs:
+      team:
+        description: 'Service Name'
+        required: false
+        default: 'dcmanager' 
+        type: string
     types: [ "debugger" ]
   workflow_dispatch:
     inputs:
-      service_name:
+      team:
         description: 'Service Name'
         required: false
         default: 'provisioning' 
@@ -28,5 +34,5 @@ jobs:
         with:
           cmd: |
             set -xe;
-            echo '${{ github.event.client_payload.message.service_name }}'
-            echo '${{ github.event.inputs.service_name }}'
+            echo '${{ github.event.client_payload.message.team }}'
+            echo '${{ github.event.inputs.team }}'
