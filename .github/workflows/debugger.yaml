@@ -49,6 +49,5 @@ jobs:
         with:
           cmd: |
             set -e;
-            echo '${{ github.event.client_payload.team || env.default_team }}'
-            echo '${{ github.event.inputs.team }}'
-            echo '${{ github.event.client_payload.team }}'
+            echo 'repository_dispatch with default value: ${{ github.event.client_payload.team || env.default_team }}'
+            echo 'workflow_dispatch: ${{ github.event.inputs.team }}'
