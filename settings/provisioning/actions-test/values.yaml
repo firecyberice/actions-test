@@ -1,4 +1,4 @@
 actions-test:
   image:
     repository: docker.pkg.github.com/firecyberice/actions-test/actions-test
-    tag: 132a5327
+    tag: 7884f9dc
