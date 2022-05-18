@@ -12,7 +12,7 @@ on:
         default: 'provisioning' 
       folder:
         description: 'Team Name'
-        required: false
+#         required: false
         type: choice
         default: provisioning
         options: 
@@ -21,7 +21,7 @@ on:
         - customerexperience
       envs:
         description: 'Env Name'
-        required: false
+#         required: false
         type: choice
         default: stage42
         options: 
