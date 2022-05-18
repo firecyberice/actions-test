@@ -1,12 +1,5 @@
 name: debugger
 
-inputs:
-  team:
-    description: 'Service Name'
-    required: false
-    default: 'dcmanager' 
-    type: string
-
 on:
   repository_dispatch:
     types: [ "debugger" ]
