@@ -19,5 +19,5 @@ releases:
     namespace: argocd-plugins
     version: 13.2.12
     values:
-      service:
+    - service:
         type: ClusterIP
