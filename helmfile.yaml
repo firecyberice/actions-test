@@ -1,0 +1,23 @@
+helmDefaults:
+  historyMax: 1
+  cleanupOnFail: true
+  createNamespace: true
+  wait: false
+
+environments:
+  default:
+    # secrets:
+    #   - ./env/default/namespaces/hubspot/secrets.yaml
+
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+  - name: nginx
+    chart: bitnami/nginx
+    namespace: argocd-plugins
+    version: 13.2.12
+    values:
+      service:
+        type: ClusterIP
