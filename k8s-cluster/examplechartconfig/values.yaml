@@ -1,0 +1,3 @@
+extraEnvVars:
+  - name: values
+    value: content of values.yaml

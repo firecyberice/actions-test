@@ -1,0 +1,10 @@
+# creation rules are evaluated sequentially, the first match wins
+creation_rules:
+  - path_regex: '.*[-.]?secret[-.]?s?[-.]?.*\.ya?ml|/dev/stdin'
+    #   encrypted_regex: '^(data|stringData)$'
+    shamir_threshold: 1
+    key_groups:
+      # First key group
+      - pgp:
+          - 58A77B7E15346666F6117BF94E19E1D1CFDFCDA8 # my key
+          - ACF794E968644F1B9753EB8D58C91985F2938680 # Argo-CD

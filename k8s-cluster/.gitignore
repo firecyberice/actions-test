@@ -1,0 +1,8 @@
+*~
+.DS_Store
+
+# gpg
+gpghome_*/
+
+# sops
+.decrypted~secrets.yaml
